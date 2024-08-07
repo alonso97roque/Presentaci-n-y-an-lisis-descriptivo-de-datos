@@ -2,7 +2,7 @@
 title: "Presentación y análisis descriptivo de datos con uso de software R"
 subtitle: "Presentación de Datos"
 session: "04"
-author: 'Prof. Roberto Roque'
+author: 'Prof. Roberto Roque <br><a href="https://alonso97roque.github.io/Presentacion-descriptivo-de-datos/Graficos1.html"> <i class="fa fa-desktop fa-fw"></i>&nbsp; alonso97roque.github.io</a>'
 institute: "Departamento de Matemática y Estatística, </br> Universidad Catolica San Pablo"
 output:
   xaringan::moon_reader:
@@ -20,7 +20,7 @@ output:
 
 layout: true
 
-<a class="footer-link" href="http://ctruciosm.github.io">ctruciosm.github.io &mdash; Carlos Trucíos (IMECC/UNICAMP)</a>
+<a class="footer-link" href="https://alonso97roque.github.io/Presentacion-descriptivo-de-datos/Graficos1.html">alonso97roque.github.io &mdash; Roberto Roque (DME/UCSP)</a>
 
 
 <style type="text/css">
