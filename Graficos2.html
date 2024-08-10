@@ -3,7 +3,7 @@
   <head>
     <title>Presentación y análisis descriptivo de datos con uso de software R</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Prof. Roberto Roque" />
+    <meta name="author" content="Prof. Roberto Roque     alonso97roque.github.io" />
     <script src="libs/header-attrs-2.23/header-attrs.js"></script>
     <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view-0.2.6/tile-view.js"></script>
@@ -36,7 +36,7 @@ class: center, middle, inverse, title-slide
 ## Presentación de Datos
 ]
 .author[
-### Prof. Roberto Roque
+### Prof. Roberto Roque <br><a href="https://alonso97roque.github.io/Presentacion-descriptivo-de-datos/Graficos1.html"> <i class="fa fa-desktop fa-fw"></i>  alonso97roque.github.io</a>
 ]
 .institute[
 ### Departamento de Matemática y Estatística, </br> Universidad Catolica San Pablo
@@ -45,20 +45,7 @@ class: center, middle, inverse, title-slide
 ---
 
 
-layout: true
 
-&lt;a class="footer-link" href="http://ctruciosm.github.io"&gt;ctruciosm.github.io &amp;mdash; Carlos Trucíos (IMECC/UNICAMP)&lt;/a&gt;
-
-
-&lt;style type="text/css"&gt;
-.remark-slide-content {
-    font-size: 26px;
-    padding: 1em 3.5em 1em 3.5em;
-}
-&lt;/style&gt;
-
-
----
 
 <div>
 <style type="text/css">.xaringan-extra-logo {
@@ -128,6 +115,48 @@ datos
 
 ---
 
+### Tabla de distribución de frecuencias
+
+
+
+
+.panelset[
+.panel[.panel-name[Table]
+
+
+
+```
+##          frec_abs frec_rel frec_por
+## Arequipa       15     0.30       30
+## Cuzco           9     0.18       18
+## Lima           14     0.28       28
+## Moquegua        5     0.10       10
+## Tacna           7     0.14       14
+```
+
+
+
+]
+
+
+.panel[.panel-name[R Code]
+
+```r
+fi=table(datos$Ciudad)
+hi=prop.table(table(datos$Ciudad))
+pi=hi*100
+tabla&lt;-cbind(frec_abs=fi,frec_rel=hi,frec_por=pi)
+tabla
+```
+
+]
+
+
+
+]
+
+
+---
 
 ## Diagrama de barras
 
@@ -135,7 +164,7 @@ datos
 .panelset[
 .panel[.panel-name[Plot]
 
-![](Graficos1_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+![](Graficos2_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -164,7 +193,7 @@ text(x=gr,y=table(x)+1,labels = table(x))
 .panelset[
 .panel[.panel-name[Plot]
 
-![](Graficos1_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](Graficos2_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 ]
 
 .panel[.panel-name[R Code]
@@ -191,7 +220,7 @@ text(x=table(x)+0.5,y=gr,labels = table(x))
 .panel[.panel-name[Plot]
 
 
-![](Graficos1_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](Graficos2_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
 
 
@@ -240,7 +269,7 @@ library(plotrix)
 .panel[.panel-name[Plot]
 
 
-![](Graficos1_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](Graficos2_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 
 
@@ -264,59 +293,129 @@ legend("topright",nombres,fill = colores,cex=1)
 
 ]
 
+
 ---
 
+## Variable cualitativa ordinal
 
 
 
+```r
+library(readxl)
+data1 &lt;- read_excel("datosCualitativos.xlsx",sheet="Hoja1")
+```
 
-### titulo
+--
+
+
+```r
+likert&lt;-data1$`Nivel satisfaccion`
+table(likert)
+```
+
+```
+## likert
+##     Insatisfecho Muy Insatisfecho   Muy Satisfecho       Satisfecho 
+##                3                2                4                6
+```
+
+--
+
+- Ordenaremos por jerarquia en los niveles de satisfacción
+
+
+```r
+new.likert&lt;-ordered(likert,levels=c("Muy Insatisfecho","Insatisfecho",
+                                    "Satisfecho","Muy Satisfecho"))
+table(new.likert)
+```
+
+```
+## new.likert
+## Muy Insatisfecho     Insatisfecho       Satisfecho   Muy Satisfecho 
+##                2                3                6                4
+```
+---
+
+### Tabla de frecuencias
 
 .panelset[
-.panel[.panel-name[Plot]
+.panel[.panel-name[Table]
 
 
-
-
-
-
+```
+##                  frec freq_rel freq_porc
+## Muy Insatisfecho    2   0.1333     13.33
+## Insatisfecho        3   0.2000     20.00
+## Satisfecho          6   0.4000     40.00
+## Muy Satisfecho      4   0.2667     26.67
+```
 ]
-
 
 .panel[.panel-name[R Code]
 
 
+```r
+frec=table(new.likert)
+cbind(frec,freq_rel=round(prop.table(frec),4),freq_porc=round(prop.table(frec),4)*100)
+```
 ]
-
 
 ]
 
 ---
 
-
-
-
-
-### titulo
+### Diagrama de barras
 
 .panelset[
-.panel[.panel-name[Plot]
+.panel[.panel-name[Table]
 
-
-
-
-
-
+![](Graficos2_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 ]
-
 
 .panel[.panel-name[R Code]
 
 
+```r
+gr1=barplot(table(new.likert),ylim = c(0,max(table(new.likert))*1.1),
+            col = rainbow(4),
+            main = "Nivel de satisfacción en escala Likert",
+            ylab = "Frecuencias absolutas")
+text(x=gr1,y=table(new.likert),labels = table(new.likert),pos=3)
+```
+]
+
 ]
 
 
-]
+---
+
+### Variable Estadistica Bidimensional
+
+
+```r
+library(readxl)
+data2 &lt;- read_excel("datosCualitativos.xlsx",sheet="Hoja2")
+data2
+```
+
+
+```
+## # A tibble: 10 × 2
+##    Notas Sexo  
+##    &lt;chr&gt; &lt;chr&gt; 
+##  1 A     Hombre
+##  2 A     Mujer 
+##  3 B     Hombre
+##  4 C     Mujer 
+##  5 A     Mujer 
+##  6 B     Hombre
+##  7 B     Mujer 
+##  8 B     Mujer 
+##  9 C     Hombre
+## 10 B     Mujer
+```
+
 
 ---
 
@@ -325,141 +424,367 @@ legend("topright",nombres,fill = colores,cex=1)
 
 
 
-### titulo
+
+### Tabla de contingencia
+
+
+```r
+Notas&lt;-data2$Notas
+Sexo&lt;-data2$Sexo
+```
+
 
 .panelset[
-.panel[.panel-name[Plot]
+.panel[.panel-name[Frecuencias absolutas]
+
+&lt;span style='color: blue;'&gt;Distribución conjunta de las frecuencias&lt;/span&gt;
 
 
+```r
+addmargins(table(Notas,Sexo))
+```
 
+```
+##      Sexo
+## Notas Hombre Mujer Sum
+##   A        1     2   3
+##   B        2     3   5
+##   C        1     1   2
+##   Sum      4     6  10
+```
 
 
 
 ]
 
 
-.panel[.panel-name[R Code]
+.panel[.panel-name[Frecuencias relativas]
 
 
+&lt;span style='color: blue;'&gt;Distribución conjunta de las proporciones respecto al total general&lt;/span&gt;
+
+```r
+addmargins(prop.table(table(Notas,Sexo)))
+```
+
+```
+##      Sexo
+## Notas Hombre Mujer Sum
+##   A      0.1   0.2 0.3
+##   B      0.2   0.3 0.5
+##   C      0.1   0.1 0.2
+##   Sum    0.4   0.6 1.0
+```
 ]
 
 
+.panel[.panel-name[Frecuencias porcentuales]
+
+&lt;span style='color: blue;'&gt;Distribución conjunta de los porcentajes respecto al total general&lt;/span&gt;
+
+
+
+```r
+addmargins(prop.table(table(Notas,Sexo))*100)
+```
+
+```
+##      Sexo
+## Notas Hombre Mujer Sum
+##   A       10    20  30
+##   B       20    30  50
+##   C       10    10  20
+##   Sum     40    60 100
+```
 ]
+
+]
+
 
 ---
 
 
+### Distribuciones conjuntas respecto a filas y columnas
 
 
+```r
+addmargins(prop.table(table(Notas,Sexo))*100)
+```
 
+```
+##      Sexo
+## Notas Hombre Mujer Sum
+##   A       10    20  30
+##   B       20    30  50
+##   C       10    10  20
+##   Sum     40    60 100
+```
 
-### titulo
+Al dividir las entradas de esta tabla con los subtotales
 
 .panelset[
-.panel[.panel-name[Plot]
+.panel[.panel-name[Por filas]
+
+obtenemos la **Distribución conjunta de porcentajes respecto a los totales de filas**
 
 
+```r
+prop.table(table(Notas,Sexo),1)*100
+```
 
+```
+##      Sexo
+## Notas   Hombre    Mujer
+##     A 33.33333 66.66667
+##     B 40.00000 60.00000
+##     C 50.00000 50.00000
+```
 
 
 
 ]
 
 
-.panel[.panel-name[R Code]
+.panel[.panel-name[Por columnas]
+
+obtenemos la **Distribución conjunta de porcentajes respecto a los totales de columnas**
+
+```r
+prop.table(table(Notas,Sexo),2)*100
+```
+
+```
+##      Sexo
+## Notas   Hombre    Mujer
+##     A 25.00000 33.33333
+##     B 50.00000 50.00000
+##     C 25.00000 16.66667
+```
+
+]
 
 
 ]
 
 
+
+
+---
+
+## Diagrama de barras apiladas
+
+Un diagrama de barras apiladas es una herramienta visual utilizada para representar datos categóricos con la finalidad de mostrar la composición de diferentes elementos en un conjunto. 
+
+--
+
+**Características Principales:**
+
+- Comparación de categorías: Facilita la comparación entre diferentes categorías principales.
+
+- Desglose de subcategorías: Muestra cómo se desglosa cada categoría en sus subcategorías.
+
+- Visualización de proporciones: Ayuda a visualizar las proporciones de cada subcategoría dentro de la categoría principal.
+
+En R, se obtienen de aplicar `barplot` a una tabla de contingencia. Esta dibuja las barras de la segunda variable cortadas por la frecuencia de la primera variable.
+
+
+
+---
+
+### Ejemplo.
+&gt; Grafique el diagrama de barras apiladas (con frecuencias absolutas) para Notas vs Sexo
+
+--
+
+.pull-left[
+
+
+```r
+addmargins(table(Notas,Sexo))
+```
+
+```
+##      Sexo
+## Notas Hombre Mujer Sum
+##   A        1     2   3
+##   B        2     3   5
+##   C        1     1   2
+##   Sum      4     6  10
+```
+
+&lt;br&gt;
+&lt;br&gt;
+
+
+
+El diagrama de barras apiladas será
+
+
+```r
+barplot(table(Notas,Sexo),col=rainbow(3),
+        legend.text = names(table(Notas)),
+        main="diagrama de barras apiladas")
+```
+
+]
+
+--
+
+.pull-right[
+
+![](Graficos2_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+]
+
+
+
+
+---
+
+### Ejemplo.
+&gt; Grafique el diagrama de barras apiladas (con porcentajes) para Notas vs Sexo
+
+--
+
+.pull-left[
+
+
+```r
+prop.table(table(Notas,Sexo),2)*100
+```
+
+```
+##      Sexo
+## Notas   Hombre    Mujer
+##     A 25.00000 33.33333
+##     B 50.00000 50.00000
+##     C 25.00000 16.66667
+```
+
+&lt;br&gt;
+&lt;br&gt;
+
+
+
+Para el diagrama de barras apiladas usamos
+
+
+```r
+tablaP=prop.table(table(Notas,Sexo),2)*100
+barplot(tablaP,col = rainbow(3),
+        legend.text = names(table(Notas)),
+        main = "Diagrama de barras apiladas (%)")
+```
+
+]
+
+--
+
+.pull-right[
+
+![](Graficos2_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+]
+
+
+---
+
+## Diagrama de barras por bloques
+
+En vez de organizar las barras de la primera variable en una sola barra vertical, se pueden dibujar una junto a la otra mediante la opción `beside=TRUE`.
+
+---
+
+### Ejemplo.
+&gt; Grafique el diagrama de barras por bloques (con porcentajes) para Notas vs Sexo
+
+--
+
+.pull-left[
+
+
+```r
+prop.table(table(Notas,Sexo),2)*100
+```
+
+```
+##      Sexo
+## Notas   Hombre    Mujer
+##     A 25.00000 33.33333
+##     B 50.00000 50.00000
+##     C 25.00000 16.66667
+```
+
+&lt;br&gt;
+&lt;br&gt;
+
+
+
+Para el diagrama de barras por bloques usamos el código R:
+
+
+```r
+g1=barplot(tablaP,col = rainbow(3),
+        legend.text = names(table(Notas)),
+        main = "Diagrama de barras por bloques (%)",
+        beside = T,ylim = c(0,max(tablaP)*1.2))
+text(x=g1,y=tablaP,labels =round(tablaP),pos=3)
+```
+
+]
+
+--
+
+.pull-right[
+
+![](Graficos2_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 ]
 
 ---
 
+### Ejemplo.
+&gt; Grafique el diagrama de barras por bloques (con porcentajes) para Sexo vs Notas
+
+--
+
+.pull-left[
+
+
+```r
+tablaQ=prop.table(table(Sexo,Notas),2)*100
+tablaQ
+```
+
+```
+##         Notas
+## Sexo            A        B        C
+##   Hombre 33.33333 40.00000 50.00000
+##   Mujer  66.66667 60.00000 50.00000
+```
+
+&lt;br&gt;
+&lt;br&gt;
 
 
 
+Para el diagrama de barras por bloques usamos el código R:
 
 
-### titulo
-
-.panelset[
-.panel[.panel-name[Plot]
-
-
-
-
-
-
-]
-
-
-.panel[.panel-name[R Code]
-
-
-]
-
-
-]
-
----
-
-
-
-
-
-
-### titulo
-
-.panelset[
-.panel[.panel-name[Plot]
-
-
-
-
-
+```r
+g2=barplot(tablaQ,col = c("cyan","salmon"),
+        legend.text = names(table(Sexo)),beside = TRUE,
+        main="Diagrama de barras por bloque (%)",
+        ylim = c(0,max(tablaQ)*1.2),
+        xlab = "Notas",ylab = "Porcentajes")
+text(x=g2,y=tablaQ,labels = round(tablaQ,2),pos=3)
+```
 
 ]
 
+--
 
-.panel[.panel-name[R Code]
+.pull-right[
 
-
+![](Graficos2_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
 ]
-
-
-]
-
----
-
-
-
-
-
-
-### titulo
-
-.panelset[
-.panel[.panel-name[Plot]
-
-
-
-
-
-
-]
-
-
-.panel[.panel-name[R Code]
-
-
-]
-
-
-]
-
----
-
 
 
     </textarea>
